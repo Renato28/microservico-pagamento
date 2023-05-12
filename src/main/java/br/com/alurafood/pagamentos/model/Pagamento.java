@@ -1,6 +1,6 @@
 package br.com.alurafood.pagamentos.model;
 
-import br.com.alurafood.pagamentos.model.enums.StatusPagamento;
+import br.com.alurafood.pagamentos.model.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -47,7 +47,7 @@ public class Pagamento {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private StatusPagamento statusPagamento;
+    private Status status;
 
     @NotNull
     private Long pedidoId;

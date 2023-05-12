@@ -2,7 +2,7 @@ package br.com.alurafood.pagamentos.service;
 
 import br.com.alurafood.pagamentos.dto.PagamentoDto;
 import br.com.alurafood.pagamentos.model.Pagamento;
-import br.com.alurafood.pagamentos.model.enums.StatusPagamento;
+import br.com.alurafood.pagamentos.model.enums.Status;
 import br.com.alurafood.pagamentos.repository.PagamentoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -36,7 +36,7 @@ public class PagamentoService {
 
     public PagamentoDto criarPagamento(PagamentoDto dto){
         Pagamento pagamento = modelMapper.map(dto, Pagamento.class);
-        pagamento.setStatusPagamento(StatusPagamento.CRIADO);
+        pagamento.setStatus(Status.CRIADO);
         repository.save(pagamento);
 
         return modelMapper.map(pagamento, PagamentoDto.class);

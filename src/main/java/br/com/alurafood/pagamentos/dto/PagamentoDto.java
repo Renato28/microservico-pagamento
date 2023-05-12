@@ -1,7 +1,7 @@
 package br.com.alurafood.pagamentos.dto;
 
 
-import br.com.alurafood.pagamentos.model.enums.StatusPagamento;
+import br.com.alurafood.pagamentos.model.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +17,7 @@ public class PagamentoDto {
     private String numero;
     private String expiracao;
     private String codigo;
-    private StatusPagamento statusPagamento;
+    private Status status;
     private Long formaDePagamentoId;
     private Long pedidoId;
 }
