@@ -1,7 +1,9 @@
 package br.com.alurafood.pagamentos.service;
 
 import br.com.alurafood.pagamentos.dto.PagamentoDto;
+import br.com.alurafood.pagamentos.model.Pagamento;
 import br.com.alurafood.pagamentos.repository.PagamentoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,5 +24,12 @@ public class PagamentoService {
                 .findAll(paginacao)
                 .map(pagamento -> modelMapper.map(pagamento, PagamentoDto.class));
 
+    }
+
+    public PagamentoDto obterPorId(Long id){
+        Pagamento pagamento = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException());
+
+        return modelMapper.map(pagamento, PagamentoDto.class);
     }
 }
