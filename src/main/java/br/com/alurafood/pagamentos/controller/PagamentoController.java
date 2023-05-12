@@ -2,16 +2,18 @@ package br.com.alurafood.pagamentos.controller;
 
 import br.com.alurafood.pagamentos.dto.PagamentoDto;
 import br.com.alurafood.pagamentos.service.PagamentoService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 
 @RestController
@@ -31,5 +33,13 @@ public class PagamentoController {
         PagamentoDto dto = service.obterPorId(id);
 
         return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping
+    public ResponseEntity<PagamentoDto> cadastrar(@RequestBody @Valid PagamentoDto dto, UriComponentsBuilder builder){
+        PagamentoDto pagamento = service.criarPagamento(dto);
+        URI endereco = builder.path("/pagamentos/{id}").buildAndExpand(pagamento.getId()).toUri();
+
+        return ResponseEntity.created(endereco).body(pagamento);
     }
 }
